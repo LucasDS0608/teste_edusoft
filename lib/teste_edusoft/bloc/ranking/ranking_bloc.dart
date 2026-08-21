@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_state.dart';
+import 'package:teste_edusoft/teste_edusoft/data/model/ranking_model.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 
 class RankingBloc extends Bloc<RankingEvent, RankingState>{
@@ -11,14 +12,11 @@ class RankingBloc extends Bloc<RankingEvent, RankingState>{
   }
 
   void _mapEventToState(RankingEvent event, Emitter emit) async {
+    List<RankingModel> ranking = [];
     emit(RankingLoadingState());
     if (event is GetRanking) {
-      try {
-        final ranking = await repo.getRanking(localidade: event.localidade, sexo: event.sexo);
-        emit(RankingLoadedState(ranking: ranking)); 
-      } catch (e) {
-        emit(RankingErrorState(exception: Exception("Falha ao carregar ranking: $e")));
-      }
+      ranking = await repo.getRanking(localidade: event.localidade, sexo: event.sexo);
     }
+    emit(RankingLoadedState(ranking: ranking)); 
   }
 }

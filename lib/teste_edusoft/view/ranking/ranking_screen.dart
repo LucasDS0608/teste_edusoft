@@ -31,7 +31,7 @@ class _RankingScreenState extends State<RankingScreen> {
 
   // Método para disparar a busca sempre que um filtro mudar
   void _aplicarFiltros() {
-    context.read<RankingBloc>().add(
+    _rankingBloc.add(
       GetRanking(sexo: selectedSexo, localidade: selectedUf)
     );
   }
