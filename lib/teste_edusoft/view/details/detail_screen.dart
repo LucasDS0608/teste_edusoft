@@ -8,7 +8,9 @@ import 'package:teste_edusoft/teste_edusoft/view/details/localwidgets/gender_det
 
 class DetailScreen extends StatefulWidget{
   final String nome;
-  const DetailScreen({super.key, required this.nome});
+  final String? sexo;
+  final String? localidade;
+  const DetailScreen({super.key, required this.nome, this.sexo, this.localidade});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -20,7 +22,7 @@ class _DetailScreenState extends State<DetailScreen> {
   void initState() {
     super.initState();
     _detailBloc = DetailBloc(repo: IbgeRepository());
-    _detailBloc.add(GetDetail(nome: widget.nome));
+    _detailBloc.add(GetDetail(nome: widget.nome, sexo: widget.sexo, localidade: widget.localidade));
   }
 
   @override
@@ -31,7 +33,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _detailBloc.add(GetDetail(nome: widget.nome));
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalhes"),

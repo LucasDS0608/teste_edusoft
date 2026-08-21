@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_bloc.dart';
+import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 import 'package:teste_edusoft/teste_edusoft/view/ranking/ranking_screen.dart';
 
 void main() {
@@ -42,7 +45,10 @@ class MeuApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: RankingScreen(), 
+      home: BlocProvider(
+        create: (context) => RankingBloc(repo: IbgeRepository()),
+        child: RankingScreen(),
+      ), 
     );
   }
 }

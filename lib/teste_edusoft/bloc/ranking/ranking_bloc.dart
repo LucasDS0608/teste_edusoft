@@ -12,11 +12,13 @@ class RankingBloc extends Bloc<RankingEvent, RankingState>{
 
   void _mapEventToState(RankingEvent event, Emitter emit) async {
     emit(RankingLoadingState());
-    try {
-      final ranking = await repo.getRanking();
-      emit(RankingLoadedState(ranking: ranking)); 
-    } catch (e) {
-      emit(RankingErrorState(exception: Exception("Falha ao carregar ranking: $e")));
+    if (event is GetRanking) {
+      try {
+        final ranking = await repo.getRanking(localidade: event.localidade, sexo: event.sexo);
+        emit(RankingLoadedState(ranking: ranking)); 
+      } catch (e) {
+        emit(RankingErrorState(exception: Exception("Falha ao carregar ranking: $e")));
+      }
     }
   }
 }

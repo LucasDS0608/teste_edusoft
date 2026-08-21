@@ -16,8 +16,16 @@ class DetailBloc extends Bloc<DetailEvent, DetailState>{
     List<DetailModel> detailFem = [];
     emit(DetailLoadingState());
     if (event is GetDetail) {
-      detailMasc = await repo.getDetails(event.nome, true);
-      detailFem = await repo.getDetails(event.nome, false);
+      if (event.sexo != null && event.sexo!.isNotEmpty) {
+        if (event.sexo == 'M') {
+          detailMasc = await repo.getDetails(event.nome, sexo: 'M', localidade: event.localidade ?? '');
+        } else if (event.sexo == 'F') {
+          detailFem = await repo.getDetails(event.nome, sexo: 'F', localidade: event.localidade ?? '');
+        }
+      } else {
+        detailMasc = await repo.getDetails(event.nome, sexo: 'M', localidade: event.localidade ?? '');
+        detailFem = await repo.getDetails(event.nome, sexo: 'F', localidade: event.localidade ?? '');
+      }
     }
     emit(DetailLoadedState(detailMasc: detailMasc, detailFem: detailFem));
   }

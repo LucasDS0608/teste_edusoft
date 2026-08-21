@@ -7,8 +7,18 @@ import 'package:teste_edusoft/teste_edusoft/data/provider/ibge_api_path.dart';
 
 class IbgeRepository {
 
-  Future<List<RankingModel>> getRanking() async{
-    return await http.get(Uri.parse(IbgeApiPath.rankingPath)).then((result) {
+  Future<List<RankingModel>> getRanking({String sexo = '', String localidade = ''}) async{
+    var url = Uri.parse(IbgeApiPath.rankingPath);
+  
+    // Adiciona os query parameters dinamicamente se eles não forem vazios
+    Map<String, String> queryParams = {};
+    if (sexo.isNotEmpty) queryParams['sexo'] = sexo;
+    if (localidade.isNotEmpty) queryParams['localidade'] = localidade;
+    
+    if (queryParams.isNotEmpty) {
+      url = url.replace(queryParameters: queryParams);
+    }
+    return await http.get(url).then((result) {
       if (result.statusCode == 200) {
         return jsonDecode(result.body).map<RankingModel>((r) => RankingModel.fromJson(r)).toList();
       }
@@ -18,14 +28,18 @@ class IbgeRepository {
     });
   }
   
-  Future<List<DetailModel>> getDetails(String nome, bool masc) async{
-    String sexo;
-    if(masc) {
-      sexo = "m";
-    } else {
-      sexo = "f";
+  Future<List<DetailModel>> getDetails(String nome, {String sexo = '', String localidade = ''}) async{
+    var url = Uri.parse('${IbgeApiPath.basePath}/$nome');
+  
+    // Adiciona os query parameters dinamicamente se eles não forem vazios
+    Map<String, String> queryParams = {};
+    if (sexo.isNotEmpty) queryParams['sexo'] = sexo;
+    if (localidade.isNotEmpty) queryParams['localidade'] = localidade;
+    
+    if (queryParams.isNotEmpty) {
+      url = url.replace(queryParameters: queryParams);
     }
-    return await http.get(Uri.parse("${IbgeApiPath.basePath}/$nome?sexo=$sexo"), ).then((result) {
+    return await http.get(url).then((result) {
       if (result.statusCode == 200) {
         return jsonDecode(result.body).map<DetailModel>((r) => DetailModel.fromJson(r)).toList();
       }
