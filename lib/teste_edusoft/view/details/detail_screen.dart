@@ -4,7 +4,6 @@ import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_state.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
-import 'package:teste_edusoft/teste_edusoft/view/details/localwidgets/frequency_chart.dart';
 import 'package:teste_edusoft/teste_edusoft/view/details/localwidgets/gender_details_section.dart';
 
 class DetailScreen extends StatelessWidget{
