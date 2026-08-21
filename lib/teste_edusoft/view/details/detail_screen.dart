@@ -14,7 +14,20 @@ class DetailScreen extends StatefulWidget{
   State<DetailScreen> createState() => _DetailScreenState();
 }
 class _DetailScreenState extends State<DetailScreen> {
-  final DetailBloc _detailBloc = DetailBloc(repo: IbgeRepository());
+  late final DetailBloc _detailBloc;
+
+ @override
+  void initState() {
+    super.initState();
+    _detailBloc = DetailBloc(repo: IbgeRepository());
+    _detailBloc.add(GetDetail(nome: widget.nome));
+  }
+
+  @override
+  void dispose() {
+    _detailBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
