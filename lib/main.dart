@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:teste_edusoft/teste_edusoft/view/ranking_screen.dart';
+import 'package:teste_edusoft/teste_edusoft/view/ranking/ranking_screen.dart';
 
 void main() {
   runApp(const MeuApp());
@@ -35,7 +35,7 @@ class MeuApp extends StatelessWidget {
         cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 2,
-          shadowColor: Colors.black.withOpacity(0.1),
+          shadowColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12), // Cantinhos modernos
           ),

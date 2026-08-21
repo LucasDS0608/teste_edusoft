@@ -4,7 +4,7 @@ import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_state.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
-import 'package:teste_edusoft/teste_edusoft/view/detail_screen.dart';
+import 'package:teste_edusoft/teste_edusoft/view/details/detail_screen.dart';
 
 class RankingScreen extends StatelessWidget {
   RankingScreen({super.key});
@@ -16,7 +16,7 @@ class RankingScreen extends StatelessWidget {
     _rankingBloc.add(GetRanking());
     return Scaffold(
       appBar: AppBar(
-        title: Text("Teste Edusoft"),
+        title: Text("Nomes mais usados"),
         centerTitle: true,
       ),
       body: BlocBuilder<RankingBloc, RankingState>(
@@ -39,28 +39,17 @@ class RankingScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  // child: Card(
-                  //   child: Column(
-                  //     children: [
-                  //       Text("Ranking: ${item!.ranking.toString()}", style: TextStyle(fontWeight: FontWeight(700)),),
-                  //       Wrap(
-                  //         children: [
-                  //           Padding(
-                  //             padding: const EdgeInsets.all(8.0),
-                  //             child: Text("Nome: ${item.nome??"Não encontrado"}"),
-                  //           ),
-                  //           Padding(
-                  //             padding: const EdgeInsets.all(8.0),
-                  //             child: Text("Frequência: ${item.frequencia.toString()}"),
-                  //           ),
-                  //         ],
-                  //       ),
-
-                  //     ],
-                  //   ),
-                  // ),
-                  child: ListTile(
-                    leading: Text(item!.ranking.toString(), style: TextStyle(fontWeight: FontWeight(700)),),
+                  child: Card(
+                    child: ListTile(
+                      leading: Text(item!.ranking.toString(), style: TextStyle(fontWeight: FontWeight(700)),),
+                      title: Text(item.nome??"Não encontrado"),
+                      subtitle: Row(
+                        children: [
+                          Icon(Icons.insert_chart),
+                          Text(item.frequencia.toString()),
+                        ],
+                      ),
+                    ),
                   ),
                 );
               },

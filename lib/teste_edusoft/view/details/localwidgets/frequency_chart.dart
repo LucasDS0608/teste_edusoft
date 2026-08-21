@@ -16,8 +16,10 @@ class FrequencyChart extends StatelessWidget {
       }
     }
 
-    return AspectRatio(
-      aspectRatio: 1.5,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 450, // O teto de altura! Ajuste esse valor como preferir.
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BarChart(
@@ -28,6 +30,25 @@ class FrequencyChart extends StatelessWidget {
               show: true,
               topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
               rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+              leftTitles: AxisTitles(
+                sideTitles: SideTitles(
+                  showTitles: true,
+                  reservedSize: 45,
+                  getTitlesWidget: (value, meta) {
+                    if (value == meta.max) {
+                      return const SizedBox.shrink(); // Esconde o valor quebrado do topo
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text(
+                        meta.formattedValue,
+                        style: const TextStyle(fontSize: 10, color: Colors.grey, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.right,
+                      ),
+                    );
+                  },
+                ),
+              ),
               bottomTitles: AxisTitles(
                 sideTitles: SideTitles(
                   showTitles: true,
