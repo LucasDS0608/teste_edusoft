@@ -5,18 +5,20 @@ import 'package:teste_edusoft/teste_edusoft/data/model/detail_model.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState>{
-  final IbgeRepository _repo;
+  final IbgeRepository repo;
 
-  DetailBloc({required this._repo}) : super(DetailInitialState()){
+  DetailBloc({required this.repo}) : super(DetailInitialState()){
     on(_mapEventToState);
   }
 
   void _mapEventToState(DetailEvent event, Emitter emit) async {
-    List<DetailModel> detail = [];
+    List<DetailModel> detailMasc = [];
+    List<DetailModel> detailFem = [];
     emit(DetailLoadingState());
     if (event is GetDetail) {
-      detail = await _repo.getDetails(event.nome);
+      detailMasc = await repo.getDetails(event.nome, true);
+      detailFem = await repo.getDetails(event.nome, false);
     }
-    emit(DetailLoadedState(detail: detail));
+    emit(DetailLoadedState(detailMasc: detailMasc, detailFem: detailFem));
   }
 }

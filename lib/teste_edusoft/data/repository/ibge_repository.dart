@@ -18,8 +18,14 @@ class IbgeRepository {
     });
   }
   
-  Future<List<DetailModel>> getDetails(String nome) async{
-    return await http.get(Uri.parse("${IbgeApiPath.basePath}/$nome")).then((result) {
+  Future<List<DetailModel>> getDetails(String nome, bool masc) async{
+    String sexo;
+    if(masc) {
+      sexo = "m";
+    } else {
+      sexo = "f";
+    }
+    return await http.get(Uri.parse("${IbgeApiPath.basePath}/$nome?sexo=$sexo"), ).then((result) {
       if (result.statusCode == 200) {
         return jsonDecode(result.body).map<DetailModel>((r) => DetailModel.fromJson(r)).toList();
       }
