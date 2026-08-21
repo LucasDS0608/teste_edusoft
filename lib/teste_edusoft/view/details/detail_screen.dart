@@ -6,15 +6,19 @@ import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_state.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 import 'package:teste_edusoft/teste_edusoft/view/details/localwidgets/gender_details_section.dart';
 
-class DetailScreen extends StatelessWidget{
+class DetailScreen extends StatefulWidget{
   final String nome;
-  DetailScreen({super.key, required this.nome});
+  const DetailScreen({super.key, required this.nome});
 
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+class _DetailScreenState extends State<DetailScreen> {
   final DetailBloc _detailBloc = DetailBloc(repo: IbgeRepository());
 
   @override
   Widget build(BuildContext context) {
-    _detailBloc.add(GetDetail(nome: nome));
+    _detailBloc.add(GetDetail(nome: widget.nome));
     return Scaffold(
       appBar: AppBar(
         title: Text("Detalhes"),
