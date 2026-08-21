@@ -9,7 +9,6 @@ class FrequencyChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Pegando o maior valor para definir o teto do gráfico
     double maxY = 0;
     for (var item in dados) {
       if ((item.frequencia ?? 0) > maxY) {
@@ -23,8 +22,8 @@ class FrequencyChart extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: BarChart(
           BarChartData(
-            maxY: maxY + (maxY * 0.1), // Dá um respiro de 10% no topo
-            barTouchData: BarTouchData(enabled: true), // Tooltip ao clicar!
+            maxY: maxY + (maxY * 0.1),
+            barTouchData: BarTouchData(enabled: true),
             titlesData: FlTitlesData(
               show: true,
               topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -35,10 +34,8 @@ class FrequencyChart extends StatelessWidget {
                   getTitlesWidget: (value, meta) {
                     final index = value.toInt();
                     if (index >= 0 && index < dados.length) {
-                      // Limpando a string do IBGE: de "[1930,1940[" para "1930"
                       final periodoCru = dados[index].periodo ?? "";
                       final label = periodoCru.replaceAll("[", "").split(",").first;
-                      
                       return Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text(
@@ -52,8 +49,8 @@ class FrequencyChart extends StatelessWidget {
                 ),
               ),
             ),
-            borderData: FlBorderData(show: false), // Tira as bordas feias do gráfico
-            gridData: const FlGridData(show: true, drawVerticalLine: false), // Apenas linhas horizontais
+            borderData: FlBorderData(show: false),
+            gridData: const FlGridData(show: true, drawVerticalLine: false),
             barGroups: dados.asMap().entries.map((entry) {
               final index = entry.key;
               final item = entry.value;
@@ -63,8 +60,8 @@ class FrequencyChart extends StatelessWidget {
                   BarChartRodData(
                     toY: item.frequencia?.toDouble() ?? 0,
                     color: Theme.of(context).primaryColor,
-                    width: 16, // Largura da coluna
-                    borderRadius: BorderRadius.circular(4), // Cantos arredondados
+                    width: 16,
+                    borderRadius: BorderRadius.circular(4),
                   ),
                 ],
               );

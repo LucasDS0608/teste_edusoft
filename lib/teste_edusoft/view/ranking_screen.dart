@@ -39,25 +39,28 @@ class RankingScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Text("Ranking: ${item!.ranking.toString()}", style: TextStyle(fontWeight: FontWeight(700)),),
-                        Wrap(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("Nome: ${item.nome??"Não encontrado"}"),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text("Frequência: ${item.frequencia.toString()}"),
-                            ),
-                          ],
-                        ),
+                  // child: Card(
+                  //   child: Column(
+                  //     children: [
+                  //       Text("Ranking: ${item!.ranking.toString()}", style: TextStyle(fontWeight: FontWeight(700)),),
+                  //       Wrap(
+                  //         children: [
+                  //           Padding(
+                  //             padding: const EdgeInsets.all(8.0),
+                  //             child: Text("Nome: ${item.nome??"Não encontrado"}"),
+                  //           ),
+                  //           Padding(
+                  //             padding: const EdgeInsets.all(8.0),
+                  //             child: Text("Frequência: ${item.frequencia.toString()}"),
+                  //           ),
+                  //         ],
+                  //       ),
 
-                      ],
-                    ),
+                  //     ],
+                  //   ),
+                  // ),
+                  child: ListTile(
+                    leading: Text(item!.ranking.toString(), style: TextStyle(fontWeight: FontWeight(700)),),
                   ),
                 );
               },

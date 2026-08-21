@@ -26,64 +26,134 @@ class DetailScreen extends StatelessWidget{
           if (state is DetailLoadingState) {
             return Center(child: CircularProgressIndicator());
           } else if (state is DetailLoadedState) {
-            final itens = state.detailMasc;
-            return ListView.builder(
-              itemCount: itens.length,
-              itemBuilder: (context, index) {
-                final item = itens[index];
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Wrap(
+            final itensMasc = state.detailMasc;
+            final itensFem = state.detailFem;
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: itensMasc.length,
+                    itemBuilder: (context, index) {
+                      final item = itensMasc[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.person),
-                          Text(item.nome??"Não encontrado")
-                        ]
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Wrap(
-                        children: [
-                          Icon(Icons.map),
-                          Text("Localidade: ${item.localidade??"Não encontrado"}"),
-                          Text(" | "),
-                          Icon(Icons.male),
-                          Icon(Icons.female),
-                          Text("Sexo: ${item.sexo??"Não encontrado"}"),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              children: [
+                                Icon(Icons.person),
+                                Text(item.nome??"Não encontrado")
+                              ]
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              children: [
+                                Icon(Icons.map),
+                                Text("Localidade: ${item.localidade??"Não encontrado"}"),
+                                Text(" | "),
+                                Icon(Icons.male),
+                                Icon(Icons.female),
+                                Text("Sexo: ${item.sexo??"Não encontrado"}"),
+                              ],
+                            ),
+                          ),
+                          // ListView.builder(
+                          //   shrinkWrap: true,
+                          //   physics: const NeverScrollableScrollPhysics(),
+                          //   itemCount: item.res?.length??0,
+                          //   itemBuilder: (context, index) {
+                          //     final res = item.res?[index];
+                          //     return Card(
+                          //       elevation: 4,
+                          //       child: Wrap(
+                          //         alignment: WrapAlignment.center,
+                          //         children: [
+                          //           Padding(
+                          //             padding: const EdgeInsets.all(8.0),
+                          //             child: Text('Periodo: ${res?.periodo?.replaceAll("[", "").replaceAll(",", " até ")}'),
+                          //           ),
+                          //           Padding(
+                          //             padding: const EdgeInsets.all(8.0),
+                          //             child: Text('Frequência: ${res?.frequencia}'),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     );
+                          //   },
+                          // )
+                          FrequencyChart(dados: item.res!).build(context)
                         ],
-                      ),
-                    ),
-                    // ListView.builder(
-                    //   shrinkWrap: true,
-                    //   physics: const NeverScrollableScrollPhysics(),
-                    //   itemCount: item.res?.length??0,
-                    //   itemBuilder: (context, index) {
-                    //     final res = item.res?[index];
-                    //     return Card(
-                    //       elevation: 4,
-                    //       child: Wrap(
-                    //         alignment: WrapAlignment.center,
-                    //         children: [
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Periodo: ${res?.periodo?.replaceAll("[", "").replaceAll(",", " até ")}'),
-                    //           ),
-                    //           Padding(
-                    //             padding: const EdgeInsets.all(8.0),
-                    //             child: Text('Frequência: ${res?.frequencia}'),
-                    //           ),
-                    //         ],
-                    //       ),
-                    //     );
-                    //   },
-                    // )
-                    FrequencyChart(dados: item.res!).build(context)
-                  ],
-                );
-              },
+                      );
+                    },
+                  ),
+                  Divider(),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: itensFem.length,
+                    itemBuilder: (context, index) {
+                      final item = itensFem[index];
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              children: [
+                                Icon(Icons.person),
+                                Text(item.nome??"Não encontrado")
+                              ]
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Wrap(
+                              children: [
+                                Icon(Icons.map),
+                                Text("Localidade: ${item.localidade??"Não encontrado"}"),
+                                Text(" | "),
+                                Icon(Icons.male),
+                                Icon(Icons.female),
+                                Text("Sexo: ${item.sexo??"Não encontrado"}"),
+                              ],
+                            ),
+                          ),
+                          // ListView.builder(
+                          //   shrinkWrap: true,
+                          //   physics: const NeverScrollableScrollPhysics(),
+                          //   itemCount: item.res?.length??0,
+                          //   itemBuilder: (context, index) {
+                          //     final res = item.res?[index];
+                          //     return Card(
+                          //       elevation: 4,
+                          //       child: Wrap(
+                          //         alignment: WrapAlignment.center,
+                          //         children: [
+                          //           Padding(
+                          //             padding: const EdgeInsets.all(8.0),
+                          //             child: Text('Periodo: ${res?.periodo?.replaceAll("[", "").replaceAll(",", " até ")}'),
+                          //           ),
+                          //           Padding(
+                          //             padding: const EdgeInsets.all(8.0),
+                          //             child: Text('Frequência: ${res?.frequencia}'),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     );
+                          //   },
+                          // )
+                          FrequencyChart(dados: item.res!).build(context)
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
             );
           } else {
             return Center(
