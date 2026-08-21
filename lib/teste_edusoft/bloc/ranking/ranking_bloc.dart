@@ -1,22 +1,22 @@
 import 'package:bloc/bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_state.dart';
-import 'package:teste_edusoft/teste_edusoft/data/model/ranking_model.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 
 class RankingBloc extends Bloc<RankingEvent, RankingState>{
-  final _repo = IbgeRepository();
+  final IbgeRepository _repo;
 
-  RankingBloc() : super(RankingInitialState()){
-    on(_mapEventToState);
+  RankingBloc({required this._repo}) : super(RankingInitialState()) {
+    on<GetRanking>(_mapEventToState);
   }
 
   void _mapEventToState(RankingEvent event, Emitter emit) async {
-    List<RankingModel> ranking = [];
     emit(RankingLoadingState());
-    if (event is GetRanking) {
-      ranking = await _repo.getRanking();
+    try {
+      final ranking = await _repo.getRanking();
+      emit(RankingLoadedState(ranking: ranking)); 
+    } catch (e) {
+      emit(RankingErrorState(exception: Exception("Falha ao carregar ranking: $e")));
     }
-    emit(RankingLoadedgState(ranking: ranking));
   }
 }

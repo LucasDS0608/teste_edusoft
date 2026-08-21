@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_state.dart';
+import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 import 'package:teste_edusoft/teste_edusoft/view/detail_screen.dart';
 
 class RankingScreen extends StatelessWidget {
   RankingScreen({super.key});
 
-  final RankingBloc _rankingBloc = RankingBloc();
+  final RankingBloc _rankingBloc = RankingBloc(repo: IbgeRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class RankingScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is RankingLoadingState) {
             return Center(child: CircularProgressIndicator());
-          } else if (state is RankingLoadedgState) {
+          } else if (state is RankingLoadedState) {
             final list = state.ranking;
             return ListView.builder(
               itemCount: list[0].res?.length??0,

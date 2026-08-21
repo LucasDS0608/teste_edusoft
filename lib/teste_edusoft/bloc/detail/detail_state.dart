@@ -14,12 +14,12 @@ class DetailLoadingState extends DetailState {
   DetailLoadingState() : super(detail: []);
 }
 
-class DetailLoadedgState extends DetailState {
-  DetailLoadedgState({required super.detail});
+class DetailLoadedState extends DetailState {
+  DetailLoadedState({required super.detail});
 }
 
-class DetailErrorgState extends DetailState {
+class DetailErrorState extends DetailState {
   final Exception exception;
   
-  DetailErrorgState({required this.exception}) : super(detail: []);
+  DetailErrorState({required this.exception}) : super(detail: []);
 }

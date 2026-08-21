@@ -14,12 +14,12 @@ class RankingLoadingState extends RankingState {
   RankingLoadingState() : super(ranking: []);
 }
 
-class RankingLoadedgState extends RankingState {
-  RankingLoadedgState({required super.ranking});
+class RankingLoadedState extends RankingState {
+  RankingLoadedState({required super.ranking});
 }
 
-class RankingErrorgState extends RankingState {
+class RankingErrorState extends RankingState {
   final Exception exception;
   
-  RankingErrorgState({required this.exception}) : super(ranking: []);
+  RankingErrorState({required this.exception}) : super(ranking: []);
 }

@@ -5,9 +5,9 @@ import 'package:teste_edusoft/teste_edusoft/data/model/detail_model.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 
 class DetailBloc extends Bloc<DetailEvent, DetailState>{
-  final _repo = IbgeRepository();
+  final IbgeRepository _repo;
 
-  DetailBloc() : super(DetailInitialState()){
+  DetailBloc({required this._repo}) : super(DetailInitialState()){
     on(_mapEventToState);
   }
 
@@ -17,6 +17,6 @@ class DetailBloc extends Bloc<DetailEvent, DetailState>{
     if (event is GetDetail) {
       detail = await _repo.getDetails(event.nome);
     }
-    emit(DetailLoadedgState(detail: detail));
+    emit(DetailLoadedState(detail: detail));
   }
 }

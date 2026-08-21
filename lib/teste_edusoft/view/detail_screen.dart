@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_bloc.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_event.dart';
 import 'package:teste_edusoft/teste_edusoft/bloc/detail/detail_state.dart';
+import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 
 class DetailScreen extends StatelessWidget{
   final String nome;
   DetailScreen({super.key, required this.nome});
 
-  final DetailBloc _detailBloc = DetailBloc();
+  final DetailBloc _detailBloc = DetailBloc(repo: IbgeRepository());
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class DetailScreen extends StatelessWidget{
         builder: (context, state) {
           if (state is DetailLoadingState) {
             return Center(child: CircularProgressIndicator());
-          } else if (state is DetailLoadedgState) {
+          } else if (state is DetailLoadedState) {
             final itens = state.detail;
             return ListView.builder(
               itemCount: itens.length,
