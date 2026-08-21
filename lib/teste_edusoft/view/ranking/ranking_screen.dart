@@ -6,10 +6,29 @@ import 'package:teste_edusoft/teste_edusoft/bloc/ranking/ranking_state.dart';
 import 'package:teste_edusoft/teste_edusoft/data/repository/ibge_repository.dart';
 import 'package:teste_edusoft/teste_edusoft/view/details/detail_screen.dart';
 
-class RankingScreen extends StatelessWidget {
-  RankingScreen({super.key});
+class RankingScreen extends StatefulWidget {
+  const RankingScreen({super.key});
 
-  final RankingBloc _rankingBloc = RankingBloc(repo: IbgeRepository());
+  @override
+  State<RankingScreen> createState() => _RankingScreenState();
+}
+
+class _RankingScreenState extends State<RankingScreen> {
+  
+  late final RankingBloc _rankingBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _rankingBloc = RankingBloc(repo: IbgeRepository());
+    _rankingBloc.add(GetRanking());
+  }
+
+  @override
+  void dispose() {
+    _rankingBloc.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
